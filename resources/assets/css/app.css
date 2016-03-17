@@ -1,0 +1,35 @@
+body {
+    font-family: Helvetica;
+}
+
+#page-title {
+    text-transform: capitalize;
+}
+
+.profile-menu {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+@font-face {
+    font-family:summernote;font-style:normal;font-weight:400;src:url(../fonts/summernote.eot?ad8d7e2d177d2473aecd9b35d16211fb);src:url(../fonts/summernote.eot?#iefix) format("embedded-opentype"),url(../fonts/summernote.woff?ad8d7e2d177d2473aecd9b35d16211fb) format("woff"),url(../fonts/summernote.ttf?ad8d7e2d177d2473aecd9b35d16211fb) format("truetype");
+}
+
+table.dataTable {
+    margin-top: 20px!important;
+    margin-bottom: 20px!important;
+    width: 100% !important;
+}
+
+table.dataTable.no-footer {
+    border-bottom: 1px solid #ddd;
+}
+
+.pagination>.active>a,.pagination>.active>a:focus,.pagination>.active>a:hover,.pagination>.active>span,.pagination>.active>span:focus,.pagination>.active>span:hover {
+    background-color: #222D32;
+    border-color: #eeeeee !important;
+}

@@ -1,0 +1,28 @@
+{
+  "name": "tasks",
+  "description": "Simple Tasks Management with Laravel & Ajax",
+  "main": "",
+  "authors": [
+    "defrifajarutomo <defriblackertz@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [
+    "node"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "AdminLTE": "adminlte#^2.3.2",
+    "font-awesome": "^4.5.0",
+    "summernote": "^0.8.1",
+    "animate.css": "^3.5.1",
+    "noty": "^2.3.8",
+    "jquery": "^2.2.1"
+  }
+}
