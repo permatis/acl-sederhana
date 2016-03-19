@@ -5813,10 +5813,6 @@ div.FixedHeader_Cloned table {
   animation-name: slideOutUp;
 }
 
-body {
-    font-family: Helvetica;
-}
-
 #page-title {
     text-transform: capitalize;
 }
