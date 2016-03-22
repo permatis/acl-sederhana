@@ -23,4 +23,25 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function setPasswordAttribute($value)
+    {
+        if (!empty($value))
+            $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucwords($value);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(\App\Models\Role::class, 'role_user');
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(\App\Models\Permission::class, 'permission_role');
+    }
 }

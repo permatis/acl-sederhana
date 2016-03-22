@@ -6,8 +6,8 @@ if(!function_exists('breadcrumb'))
 	 * Create breadcrumb to easy and simple.
 	 * 
 	 * @param  string $homebase Title for home page or dashboard page
-	 * @param  string $separate Other symbols that are used for separatian, and default null]
-	 * @return $breadcrumb 		Make breadcrumb combine into one]
+	 * @param  string $separate Other symbols that are used for separatian, and default null
+	 * @return $breadcrumb 		Make breadcrumb combine into one
 	 */
 	function breadcrumb($homebase = 'Home', $separate = '')
 	{

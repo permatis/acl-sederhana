@@ -24,6 +24,7 @@ elixir(function(mix) {
     	bowers + 'font-awesome/css/font-awesome.css',
         bowers + 'summernote/dist/summernote.css',
         bowers + 'animate.css/animate.css', 
+        bowers + 'chosen/chosen.css', 
         'app.css'
 	], 'public/css/app.css')
 	.copy([
@@ -32,7 +33,9 @@ elixir(function(mix) {
 		bowers + 'summernote/dist/font',
 	], 'public/fonts')
     .copy([
-		bowers + 'AdminLTE/dist/img/user2-160x160.jpg',
+        bowers + 'AdminLTE/dist/img/user2-160x160.jpg',
+        bowers + 'chosen/chosen-sprite.png',
+		bowers + 'chosen/chosen-sprite@2x.png',
 	], 'public/img')
     .scripts([
         bowers + 'jquery/dist/jquery.min.js',
@@ -43,6 +46,7 @@ elixir(function(mix) {
         bowers + 'AdminLTE/dist/js/app.js',
         bowers + 'noty/js/noty/jquery.noty.js',
         bowers + 'noty/js/noty/packaged/jquery.noty.packaged.min.js',
+        bowers + 'chosen/chosen.jquery.js',
 		'app.js'
     ], 'public/js/app.js');
 });

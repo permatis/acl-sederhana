@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title-page', 'Tasks')
+@section('title-page', 'Users')
 
 @section('content')
 	<div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">List All Task</h3>
+            <h3 class="box-title">List All Users</h3>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
@@ -16,7 +16,7 @@
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Description</th>
+						<th>Email</th>
 						<th>Update At</th>
 						<th>Action</th>
 					</tr>
@@ -26,11 +26,11 @@
 			</table>
         </div>
         <div class="box-footer clearfix">
-        	<button class="btn btn-sm btn-default btn-flat pull-left" id="btn-new">Create Task</button>
+        	<button class="btn btn-sm btn-default btn-flat pull-left" id="btn-new">Create User</button>
         </div>
     </div>
 
-	@include('tasks.save')
+	@include('users.save')
 	@include('partials.delete')
 
     @push('script')
@@ -41,12 +41,12 @@
 			 	'processing': true, 
 			 	'serverSide': true,
 			 	'ajax': {
-			 		'url': 'http://tasks.dev/api/v1/ajax/tasks',
+			 		'url': 'http://tasks.dev/api/v1/ajax/users',
 			 		'type': 'POST'
 			 	},
 		        columns: [
 		            { data: 'name', name: 'name' },
-		            { data: 'description', name: 'description' },
+		            { data: 'email', name: 'email' },
 		            { data: 'updated_at', name: 'updated_at' },
 		            { data: 'action', name: 'action', orderable: false, searchable: false}
 		        ]

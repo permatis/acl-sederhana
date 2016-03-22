@@ -1,10 +1,17 @@
 $(document).ready(function() {
-    var ids = $('#forms :input[name]').map(function() {
-        return this.name;
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
+    var ids = $('#forms :input[id]').map(function() {
+        return this.id;
     }).get();
 
     //define url
     var url = window.location.href;
+    var str = $('#page-title').text();
 
     //change page title
     function changePageTitle(page_title) {
@@ -23,7 +30,7 @@ $(document).ready(function() {
 
     //create new task
     $('#btn-new').click(function() {
-        changePageTitle('Create Task');
+        changePageTitle('Create ' + str);
         changeButtonTitle('Save changes');
         $('#btn-save').val("add");
         $('#forms').trigger("reset");
@@ -34,13 +41,23 @@ $(document).ready(function() {
     $('#table').on('click', '.btn-edit', function() {
         var id = $(this).attr('data-value');
 
-        var str = $('#page-title').text();
         changePageTitle('Update ' + str);
         changeButtonTitle('Update changes');
 
         $.get(url + '/' + id + '/edit', function(data) {
         	
             $.map(ids, function(val) {
+                if($('#'+val).is('select')) {
+                    if(jQuery.inArray(1, data[val]) !== -1){
+                        $('#' + val).val(data[val]); 
+                    } else {
+                        $('#' + val).removeAttr('multiple');
+                        $('#' + val).chosen().val(data[val])
+                    }
+                    //update data with jquery choosen
+                    $('#' + val).trigger('chosen:updated');
+                }
+
                 $('#' + val).val(data[val]);
             });
             $('#btn-save').val("update");
@@ -80,10 +97,10 @@ $(document).ready(function() {
                 reload_table();
                 var messages = (button == 'add') ? 'created' : messages = 'updated';
                 var nt = noty({
-                    text: 'Your task has been ' + messages + '!',
+                    text: 'Your '+ str.toLowerCase() + ' has been ' + messages + '!',
                     theme: 'relax',
                     type: 'success',
-                    timeout: 1000
+                    timeout: 2000
                 });
 
                 $('#forms').trigger("reset");
@@ -103,10 +120,10 @@ $(document).ready(function() {
                 success: function(data) {
                     reload_table();
                     var n = noty({
-                        text: 'Your task has been deleted!',
+                        text: 'Your ' + str.toLowerCase() + ' has been deleted!',
                         theme: 'relax',
                         type: 'success',
-                        timeout: 1000
+                        timeout: 2000
                     });
 
                     $('#delete-modals').modal('hide');

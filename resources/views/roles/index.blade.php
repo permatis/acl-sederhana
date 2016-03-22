@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title-page', 'Tasks')
+@section('title-page', 'Roles')
 
 @section('content')
 	<div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">List All Task</h3>
+            <h3 class="box-title">List All Roles</h3>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
@@ -26,11 +26,11 @@
 			</table>
         </div>
         <div class="box-footer clearfix">
-        	<button class="btn btn-sm btn-default btn-flat pull-left" id="btn-new">Create Task</button>
+        	<button class="btn btn-sm btn-default btn-flat pull-left" id="btn-new">Create Role</button>
         </div>
     </div>
 
-	@include('tasks.save')
+	@include('roles.save')
 	@include('partials.delete')
 
     @push('script')
@@ -41,7 +41,7 @@
 			 	'processing': true, 
 			 	'serverSide': true,
 			 	'ajax': {
-			 		'url': 'http://tasks.dev/api/v1/ajax/tasks',
+			 		'url': 'http://tasks.dev/api/v1/ajax/roles',
 			 		'type': 'POST'
 			 	},
 		        columns: [
