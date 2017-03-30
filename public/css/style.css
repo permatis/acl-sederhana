@@ -1,0 +1,61 @@
+ul.collapsibleList{
+    margin:0 0 0 -1.5em;
+    padding:0 0 0 1.5em;
+}
+ul.collapsibleList ul{
+    /*background:url('../img/list-item-contents.png') repeat-y left;*/
+}
+ul.collapsibleList li.lastChild > ul{
+    background-image: none;
+}
+ul.collapsibleList li{
+  	line-height: 1.5em;
+    margin:0;
+    padding:0;
+    background:url('../img/list-item-root.png') no-repeat top left;
+    list-style-position:inside;
+    list-style-type: none;
+    list-style-image:url('../img/button.png');
+    cursor: auto;
+}
+ul.collapsibleList li.collapsibleListOpen{
+    list-style-image:url('../img/button-open.png');
+    cursor:pointer;
+}
+ul.collapsibleList li.collapsibleListClosed{
+    list-style-image:url('../img/button-closed.png');
+    cursor:pointer;
+}
+ul.collapsibleList li.collapsibleListOpen input[type="checkbox"],
+ul.collapsibleList li.collapsibleListClosed input[type="checkbox"] {
+    top: 2px;
+    left: 0px;
+    position: relative;
+    margin-right: 2px;
+}
+ul.collapsibleList li.collapsibleListOpen ul li input[type="checkbox"],
+ul.collapsibleList li.collapsibleListClosed ul li input[type="checkbox"] {
+    left: -6px;
+    margin-right: -4px;
+    margin-left: 4px;
+}
+ul.collapsibleList li li{
+    background-image: url('../img/list-item.png');
+    padding-left: 1.5em;
+}
+ul.collapsibleList li.lastChild{
+    background-image: url('../img/list-item-last.png');
+}
+ul.collapsibleList li.collapsibleListOpen{
+    /*background-image:url('../img/list-item-open.png');*/
+}
+ul.collapsibleList li.collapsibleListOpen.lastChild{
+    background-image:url('../img/list-item-last-open.png');
+}
+ul.collapsibleList li input[type="checkbox"] {
+	margin-left: -2px;
+    position: relative;
+    top: 2px;
+    cursor: pointer;
+    margin-right: 5px;
+}

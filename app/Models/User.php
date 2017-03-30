@@ -44,4 +44,13 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(\App\Models\Permission::class, 'permission_role');
     }
+
+    public function hasRole($role)
+    {
+        if(is_string($role)) {
+            return $this->roles->contains('name', $role);
+        }
+        
+        return $this->roles->intersect($role)->count();
+    }
 }

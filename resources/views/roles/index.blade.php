@@ -25,9 +25,11 @@
 				</tbody>
 			</table>
         </div>
+		{{-- @if(auth()->user()->can('create-role')) --}}
         <div class="box-footer clearfix">
         	<button class="btn btn-sm btn-default btn-flat pull-left" id="btn-new">Create Role</button>
         </div>
+		{{-- @endif --}}
     </div>
 
 	@include('roles.save')
@@ -38,10 +40,10 @@
     	$(function() {
     		// define datatables
 			$('#table').DataTable({
-			 	'processing': true, 
+			 	'processing': true,
 			 	'serverSide': true,
 			 	'ajax': {
-			 		'url': 'http://tasks.dev/api/v1/ajax/roles',
+			 		'url': '{{ url('/') }}/api/v1/ajax/roles',
 			 		'type': 'POST'
 			 	},
 		        columns: [
@@ -51,8 +53,46 @@
 		            { data: 'action', name: 'action', orderable: false, searchable: false}
 		        ]
 		    });
+
+			// define nested
+			CollapsibleLists.apply();
+
+			$('input:checkbox').click(function() {
+				var id = $(this).attr('id');
+
+				if(id !== undefined) {
+					var el = $("input[id*='"+id+"']");
+					var elParent = $("input[id='"+id.split('_')[0]+"']");
+					var numElement = $("input[id*='"+id.split('_')[0]+"']");
+					var numChecked = $("input[id*='"+id.split('_')[0]+"']:not(:checked)");
+
+					if(this.checked) {
+						if(id.indexOf('_') > -1) {
+							if(! $('input[id^="'+id.split('_')[0]+'_view"]').is(':checked')){
+								$('input[id^="'+id.split('_')[0]+'_view"]').prop('checked', true);
+							}
+
+							elParent.prop('checked', true);
+						} else {
+							el.prop('checked', true);
+						}
+					} else {
+						if(id === id.split('_')[0]+'_view') {
+							$('input[id^="'+id.split('_')[0]+'"]').prop('checked', false);
+						}
+
+						el.prop('checked', false);
+					}
+
+					if(! this.checked) {
+						if(numChecked.length + 1 == numElement.length ) {
+							elParent.prop('checked', false);
+						}
+					}
+				}
+			});
     	});
     </script>
     @endpush
-	
+
 @endsection

@@ -2,6 +2,7 @@
 @section('title-page', 'Users')
 
 @section('content')
+@can('view-user')
 	<div class="box">
         <div class="box-header with-border">
             <h3 class="box-title">List All Users</h3>
@@ -41,7 +42,7 @@
 			 	'processing': true, 
 			 	'serverSide': true,
 			 	'ajax': {
-			 		'url': 'http://tasks.dev/api/v1/ajax/users',
+			 		'url': '{{ url('/') }}/api/v1/ajax/users',
 			 		'type': 'POST'
 			 	},
 		        columns: [
@@ -54,5 +55,5 @@
     	});
     </script>
     @endpush
-	
+	@endcan
 @endsection

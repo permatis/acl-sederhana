@@ -32,34 +32,63 @@ $(document).ready(function() {
     $('#btn-new').click(function() {
         changePageTitle('Create ' + str);
         changeButtonTitle('Save changes');
+
         $('#btn-save').val("add");
         $('#forms').trigger("reset");
         $('#modals').modal('show');
     });
 
     //edit form task
-    $('#table').on('click', '.btn-edit', function() {
+    $('#table').on('click', '.btn-edit', function(e) {
+        e.preventDefault();
+
+        // if checkbox is exists checked, remove all checked
+        if($("input[type=checkbox]").is(':checked')) {
+            $('input[type=checkbox]').removeAttr('checked', false);
+        }
+
         var id = $(this).attr('data-value');
 
         changePageTitle('Update ' + str);
         changeButtonTitle('Update changes');
 
         $.get(url + '/' + id + '/edit', function(data) {
-        	
+
             $.map(ids, function(val) {
+
                 if($('#'+val).is('select')) {
                     if(jQuery.inArray(1, data[val]) !== -1){
-                        $('#' + val).val(data[val]); 
+                        $('#' + val).val(data[val]);
                     } else {
                         $('#' + val).removeAttr('multiple');
                         $('#' + val).chosen().val(data[val])
                     }
                     //update data with jquery choosen
-                    $('#' + val).trigger('chosen:updated');
+                    // $('#' + val).trigger('chosen:updated');
                 }
 
-                $('#' + val).val(data[val]);
+                // show data except to use checkbox input
+                if($('#'+val).is('*:not(input:checkbox)')) {
+                    $('#' + val).val(data[val]);
+                }
             });
+
+            //check if data permission is exists
+            if(data.perms) {
+                $.each(data.perms, function(keys, value) {
+                    if(keys === 'crud') {
+                        $.each(value, function(key, val) {
+                            $.each(val, function(k, v) {
+                                $('#' + key+'_'+v.name).prop('checked', true);
+                                $('#' + key).prop('checked', true);
+                            });
+                        });
+                    } else {
+                        $('#' + keys).prop('checked', true);
+                    }
+                });
+            }
+
             $('#btn-save').val("update");
             $('#modals').modal('show');
         });
@@ -70,24 +99,38 @@ $(document).ready(function() {
         //define new url & define method default
         var urls = url;
         var method = 'POST';
+        var datas = perm = newData = {};
 
         //collect data
         var id = $('#id').val();
 
-        var datas = {};
+        //get value from checkbox input
+        var checkedValues = $('input:checkbox:checked').map(function() {
+            if(this.value !== 'on') {
+                return this.value;
+            }
+        }).get();
+
+        if(checkedValues) {
+            perm['permission_id'] = checkedValues;
+        }
+
         $.map(ids.slice(1), function(str) {
-            datas[str] = $('#' + str).val();
+            if($("#"+str).is('*:not(input:checkbox)')) {
+                datas[str] = $('#' + str).val();
+            }
         });
+
+        newData = (checkedValues) ? $.merge( perm, datas) : datas;
 
         //get value button
         var button = $('#btn-save').val();
 
-        // //check if update 
+        // //check if update
         if (button == 'update') {
             method = 'PUT';
             urls += '/' + id;
         }
-
         $.ajax({
             type: method,
             url: urls,

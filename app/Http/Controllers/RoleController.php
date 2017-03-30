@@ -24,8 +24,11 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $permissions = $this->permission->all();
-        return view('roles.index', compact('permissions'));
+        $permissions = $this->permission->orderBy('id', 'ASC')->get(['id', 'name']);
+        $perms = groupArrayByValueIsContains($permissions);
+        $nested = convertObjectToNestedList($perms, 'permission_id');
+
+        return view('roles.index', compact('nested'));
     }
 
     /**
@@ -66,13 +69,10 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = $this->role->find($id);
-        $perm = $role->permissions()->get(['id']);
-        $permission = [];
-        foreach ($perm as $val) {
-            $permission[] = $val->id;
-        }
+        $perm = $role->permissions()->get(['id', 'name']);
+        $perms = groupArrayByValueIsContains($perm);
 
-        return response()->json(array_merge($role->toArray(), ['permission_id' => $permission]));
+        return response()->json(array_merge($role->toArray(), ['perms' => $perms]));
     }
 
     /**
@@ -87,7 +87,6 @@ class RoleController extends Controller
         $role = $this->role->find($id);
         $role->update($request->all());
         $role->permissions()->detach();
-
         foreach($request->get('permission_id') as $perm)
         {
             $role->permissions()->sync([$perm], false);

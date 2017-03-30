@@ -1,4 +1,4 @@
-<!-- Modal for create & posts --> 
+<!-- Modal for create & posts -->
 <div class="modal fade" id="modals" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -23,12 +23,9 @@
 
                         <div class="form-group">
                             <label for="permission_id" class="control-label">Role</label>
-                            <select name="permission_id[]" id="permission_id" data-placeholder="Pilih Role" class="chosen-select" multiple="multiple">
-                                <option></option>
-                                @foreach($permissions as $perm)
-                                <option value="{{ $perm->id }}">{{ $perm->name }}</option>
-                                @endforeach
-                            </select>
+                            <ul class="collapsibleList">
+                                {!! $nested !!}
+                            </ul>
                         </div>
 
                     </div>

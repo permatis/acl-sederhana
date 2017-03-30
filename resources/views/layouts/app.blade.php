@@ -8,32 +8,41 @@
     <title>@if(request()->segment(1) != '/') @yield('title-page') - @endif Simple Task Managements</title>
     <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,300,400,700" rel='stylesheet' type='text/css'> -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/CollapsibleLists.js') }}"></script>
     @stack('script')
     <script type="text/javascript" src="{{ asset('js/crud.js') }}"></script>
 </head>
 
 <body class="skin-black sidebar-mini">
-    <div class="wrapper">
+    @if(auth()->guest() )
         @include('partials.navbar')
-        @include('partials.sidebar')
 
-        <div class="content-wrapper" style="min-height: 916px;">
-            <section class="content-header">
-                <h1 id="page-title">@yield('title-page')</h1>
-                <ol class="breadcrumb">
-                    {!! breadcrumb('Dashboard') !!}
-                </ol>
-            </section>
-            
-            <section class="content">
-                @yield('content')
-            </section>
+        <section class="content">
+            @yield('content')
+        </section>
+    @else
+        <div class="wrapper">
+            @include('partials.navbar')
+            @include('partials.sidebar')
+
+            <div class="content-wrapper" style="min-height: 916px;">
+                <section class="content-header">
+                    <h1 id="page-title">@yield('title-page')</h1>
+                    <ol class="breadcrumb">
+                        {!! breadcrumb(ucwords(request()->segment(1))) !!}
+                    </ol>
+                </section>
+
+                <section class="content">
+                    @yield('content')
+                </section>
+            </div>
+            @include('partials.footer')
+
         </div>
-
-        @include('partials.footer')
-    </div>
-    
+    @endif
     @if(session('success'))
     <script type="text/javascript">
             var n = noty({
@@ -46,7 +55,7 @@
                     open: 'animated fadeIn',
                     close: 'animated fadeOut',
                     easing: 'swing',
-                    speed: 500 
+                    speed: 500
                 }
             });
     </script>

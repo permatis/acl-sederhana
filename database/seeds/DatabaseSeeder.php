@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         $admin->email = 'admin@example.com';
         $admin->password = 'admin';
         $admin->save();
-        
+
         $moderator = new User;
         $moderator->id = 2;
         $moderator->name = 'Moderator';
@@ -80,7 +80,7 @@ class DatabaseSeeder extends Seeder
         $updateRoles->save();
 
         $destroyRoles = new Permission();
-        $destroyRoles->name = "delete-role";
+        $destroyRoles->name = "destroy-role";
         $destroyRoles->display_name = "Delete Role";
         $destroyRoles->save();
 
@@ -100,7 +100,7 @@ class DatabaseSeeder extends Seeder
         $updateUsers->save();
 
         $destroyUsers = new Permission();
-        $destroyUsers->name = 'delete-user';
+        $destroyUsers->name = 'destroy-user';
         $destroyUsers->display_name = "Delete User";
         $destroyUsers->save();
 
@@ -120,12 +120,12 @@ class DatabaseSeeder extends Seeder
         $updatePerms->save();
 
         $destroyPerms = new Permission();
-        $destroyPerms->name = "delete-permission";
+        $destroyPerms->name = "destroy-permission";
         $destroyPerms->display_name = 'Delete Permission';
         $destroyPerms->save();
 
-        $permission1 = [$manageDashboard, $manageProf, $manageRoles, $createRoles, $updateRoles, 
-                        $destroyRoles, $manageUsers, $createUsers, $updateUsers, $destroyUsers, $managePerms, 
+        $permission1 = [$manageDashboard, $manageProf, $manageRoles, $createRoles, $updateRoles,
+                        $destroyRoles, $manageUsers, $createUsers, $updateUsers, $destroyUsers, $managePerms,
                         $createPerms, $updatePerms, $destroyPerms];
 
         foreach($permission1 as $p) {
@@ -137,7 +137,7 @@ class DatabaseSeeder extends Seeder
         foreach($permission2 as $ps) {
             $roleModerator->permissions()->attach($ps);
         }
-        
+
         // $this->call(UserTableSeeder::class);
     }
 }

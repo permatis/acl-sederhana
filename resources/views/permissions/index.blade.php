@@ -41,7 +41,7 @@
 			 	'processing': true, 
 			 	'serverSide': true,
 			 	'ajax': {
-			 		'url': 'http://tasks.dev/api/v1/ajax/permissions',
+			 		'url': '{{ url('/') }}/api/v1/ajax/permissions',
 			 		'type': 'POST'
 			 	},
 		        columns: [
